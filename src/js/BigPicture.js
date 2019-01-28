@@ -1,10 +1,15 @@
-import Picture from './Picture';
+import AbstarctView from './AbstractView';
+// импортируем шаблон
 import { bigPictureTemplate } from './templates';
 
 
-export default class BigPicture extends Picture {
+export default class BigPicture extends AbstarctView {
   constructor(data) {
-    super(data);
-    this.template = bigPictureTemplate;
+    if (!data) {
+      throw new Error('ошибка создания BigPicture, отсутсвуют входные данные');
+    }
+    // инициализируем родительский класс (отрабтаем конструктор) с параметрами
+    super(bigPictureTemplate, data);
+    this.rendered = this.render();
   }
 }

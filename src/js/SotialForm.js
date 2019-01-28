@@ -1,11 +1,11 @@
 import AbstarctView from './AbstractView';
-import { commentTemplate } from './templates';
+import { sotialFormtemplate } from './templates';
 
 
-export default class Comment extends AbstarctView {
+export default class SotialForm extends AbstarctView {
   constructor() {
     super();
-    this.template = commentTemplate;
+    this.template = sotialFormtemplate;
     this.rendered = this.render();
   }
 

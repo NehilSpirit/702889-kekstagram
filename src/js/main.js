@@ -4,27 +4,17 @@ import Picture from './Picture';
 import BigPicture from './BigPicture';
 import InfoBigPicture from './InfoBigPicture';
 import Comment from './Comment';
-import { dialogHandle, onMouseDown } from './slider';
+import AbstarctView from './AbstractView';
 import {
-  previewFile, onChengeUploadFile, onClickCloseForm, onEscCloseForm, toggleClass,
-} from './form';
-import {
-  filterChromeAndSepia,
-  filterMarvin,
-  filterPhobos,
-  filterHeat,
-  howClass,
-  test,
-  imgUploadEffectLevel,
-} from './effect';
-
-
-//import { pictureTemplate, commentTemplate, bigPictureTemplate } from './templates';
+ pictureTemplate, commentTemplate, bigPictureTemplate, infoForBigPictuteTemplate, sotialFormtemplate
+} from './templates';
+import SotialForm from './SotialForm';
 
 // куда добавим фотки
 const blockPictures = document.querySelector('.pictures');
 // генерируем фейк-данные
 const photos = createArrayObject(consts.Num);
+console.log(photos);
 // фрагмент
 const fragment = document.createDocumentFragment();
 
@@ -32,6 +22,9 @@ const fragment = document.createDocumentFragment();
 photos.forEach((data) => {
   // создаем экземпляр класса Picture с консруктор передаем данные
   const picture = new Picture(data);
+  picture.clickHandler = (e) => {
+    console.log('click-clack');
+  };
   // добавим в фрагмент елемент с добавленными данными и навешенным обработчиком
   fragment.appendChild(picture.rendered);
 });
@@ -43,16 +36,21 @@ blockPictures.appendChild(fragment);
 const bigPictureContainer = document.querySelector('.big-picture');
 const bigPicturePreview = bigPictureContainer.querySelector('.big-picture__preview');
 const bigPicture = new BigPicture(photos[2]);
-bigPicturePreview.insertBefore(bigPicture.create('div', 'big-picture__img'), bigPicturePreview.firstChild);
-//bigPictureContainer.classList.remove('hidden');
+bigPicturePreview.insertBefore(bigPicture.rendered, bigPicturePreview.firstChild);
+bigPictureContainer.classList.remove('hidden');
 
 // добавляем инфо о большом фото в разметку
 const infoBigPicture = new InfoBigPicture(photos[2]);
-bigPicturePreview.insertBefore(infoBigPicture.create('div', 'big-picture__social', 'social'), bigPicturePreview.children[1]);
+const bigPictureSocial = bigPicturePreview.querySelector('.big-picture__social');
+bigPictureSocial.insertBefore(infoBigPicture.rendered, bigPictureSocial.children[0]);
 
 // добавляем коменты
-const socialComments = new Comment(photos[2]);// тут надо создать несколько коментов, как?
-const bigPictureSocial = document.querySelector('.big-picture__social');
-bigPictureSocial.insertBefore(socialComments.create('ul', 'social__comments'), bigPictureSocial.children[2]);
+const comments = new Comment(photos[2]);
+const socialComments = bigPicturePreview.querySelector('.social__comments');
+socialComments.appendChild(comments.rendered);
 
-dialogHandle.addEventListener('mousedown', onMouseDown);
+// добавим форму отправки сообщения
+const sotialForm = new SotialForm(photos[2]);
+const canselbutton = bigPictureSocial.querySelector('.big-picture__cancel');
+bigPictureSocial.insertBefore(sotialForm.rendered, canselbutton);
+// dialogHandle.addEventListener('mousedown', onMouseDown);

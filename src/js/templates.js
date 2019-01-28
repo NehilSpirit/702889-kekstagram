@@ -39,23 +39,17 @@ const infoForBigPictuteTemplate = (data) => {
   <div class="social__comment-count">5 из <span class="comments-count">${comments}</span> комментариев</div>`;
 };
 
+const sotialFormtemplate = () => `<div class="social__footer">
+  <img class="social__picture" src="img/avatar-6.svg" alt="Аватар комментатора фотографии" width="35" height="35">
+  <input type="text" class="social__footer-text" placeholder="Ваш комментарий...">
+  <button type="button" class="social__footer-btn" name="button">Отправить</button>
+</div>
+</div> `;
 
-/* const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
-const likesCount = bigPicture.querySelector('.likes-count');
-const commentsCount = bigPicture.querySelector('.comments-count');
-const socialComments = bigPicture.querySelector('.social__comments');
-const socialCaption = bigPicture.querySelector('.social__caption');
-
-const bigPictureTemplate = (data) => {
-  const {
-    url, comments, likes, description,
-  } = data;
-  bigPictureImg.src = url;
-  likesCount.textContent = likes;
-  commentsCount.textContent = comments;
-  socialComments.innerHTML = commentTemplate('avatar', 'message');
-  socialCaption.textContent = description;
-}; */
-
-export { pictureTemplate, commentTemplate, bigPictureTemplate, infoForBigPictuteTemplate };
+export {
+  pictureTemplate,
+  commentTemplate,
+  bigPictureTemplate,
+  infoForBigPictuteTemplate,
+  sotialFormtemplate,
+};

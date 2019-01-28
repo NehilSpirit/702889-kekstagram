@@ -1,49 +1,53 @@
+import AbstarctView from './AbstractView';
 // импортируем шаблон
 import { pictureTemplate } from './templates';
 
-export default class Picture {
-  // ждем что при создании будут переданы данные
+export default class Picture extends AbstarctView {
   constructor(data) {
+    // если нам нужны данные обязательно то проверим чтобы они были
     if (!data) {
       throw new Error('ошибка создания Picture, отсутсвуют входные данные');
     }
-
+    // инициализируем родительский класс (отрабтаем конструктор) с параметрами
+    super(pictureTemplate, data);
+    this.rendered = this.render();
+    /* перенесли в родителя
     // сохраняем для доступа
     this.data = data;
     this.template = pictureTemplate;
     // вызываем функцию которая делает предварительныю работу при создании класса
     this.rendered = this.init();
+    */
   }
 
-  init() {
-    const { template, data } = this;
-    const node = document.createElement('template');
-    node.innerHTML = template(data);
-    const pic = node.content.querySelector('a');
+  // переопределение для связывания(назаначения) обрабтчиков или чего то еще, чего угодно
+  bind() {
+    const pic = this.rendered.content.querySelector('a');
+    // если нам не нужно выводить обработку события наружу и все что нам нужно
+    // для обработки события есть внутри класса
     pic.addEventListener('click', this.click.bind(this));
-    return node.content;
+    // если мы будем присваивать обработчик вне класса
+    pic.addEventListener('click', (e) => {
+      this.clickHandler(e);
+    });
   }
 
-  create(teg, className, className2) {
-    const { template, data } = this;
-    const node = document.createElement(teg);
-    node.classList.add(className, className2);
-    node.innerHTML = template(data);
-    return node;
-  }
+
+  // оставим пустым, определим после инициализации экзепляра
+  // на месте создания экземпляра
+  clickHandler(e) {}
 
   click(e) {
     e.preventDefault();
     console.log(this.data);
   }
 }
-// в функции create() три аргумета, если нужно добавить только одно имя класса,
-// то к названию класса, добавляет undefinet или nuul если использовать нул 
-// если пустую строку передать вообще ломается(( как быть??
 
-// хочу функцию init() сделать чтоб только отбаботчик весила. но непонимая как работает 
-// боюсь трогать, а иначе дублирует create();
-
-// 178 строка index.html есть кнопка "big-picture__cancel  cancel"  
-// перестала визуализироваться, но я ее не трогала вообще. в браузере в разметке я ее вижу
-// но на изображении нет.
+/* // ⚠️
+ * как исопльзовать
+ * const picture = new Picture(ДАННЫЕ_ДЛЯ РЕНДЕРА)ж
+ * // определим ели нужно обработчик для клика
+ * picture.clickHandler = (e)->{
+ *  console.log('click-clack');
+ * }
+ */
