@@ -1,15 +1,17 @@
-import AbstarctView from './AbstractView';
-// импортируем шаблон
-import { bigPictureTemplate } from './templates';
+/*import Picture from './Picture';
+import { bigPictureTemplate } from './views';
 
-
-export default class BigPicture extends AbstarctView {
+export default class Bigpicture extends Picture {
   constructor(data) {
-    if (!data) {
-      throw new Error('ошибка создания BigPicture, отсутсвуют входные данные');
-    }
-    // инициализируем родительский класс (отрабтаем конструктор) с параметрами
-    super(bigPictureTemplate, data);
-    this.rendered = this.render();
+    super(data);
+    this.template = bigPictureTemplate;
+    this.rendered = this.init();
   }
-}
+
+  init() {
+    const { template, data } = this;
+    template(data);
+    const node = document.querySelector('.big-picture');
+    node.classList.remove('hidden');
+  }
+} */

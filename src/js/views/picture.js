@@ -1,13 +1,30 @@
-// функция получает данные и возвращает строку с ренедром этих данных и шаблона разметки
-const pictureTemplate = (data) => {
-  const { url, comments, likes } = data;
-  return `<a href="#" class="picture">
-    <img class="picture__img" src="${url}" width="182" height="182" alt="Случайная фотография">
-    <p class="picture__info">
-        <span class="picture__comments">${comments}</span>
-        <span class="picture__likes">${likes}</span>
-    </p>
-</a>`;
-};
+import AbstractView from './AbstractView';
+import { pictureTemplate } from '../templates';
 
-export default pictureTemplate;
+export default class Picture extends AbstractView {
+  constructor(data) {
+    console.log('call Picture constructor');
+    super(pictureTemplate, data);
+    this.render();
+  }
+
+  bind() {
+    const pic = this.rendered.querySelector('a');// вот тут метод render вызывается ?
+    pic.addEventListener('click', () => { this.onClick(); });// и опять onclick? мы же на 29 строке Абстракта вроде его вызывали?
+  }
+
+  onClick() {
+  }
+
+  remove() {
+    this.data = null;
+    this.template = null; // зачем мы это все обнуляем для каждого элемента? можно же просто innerHTML = '';??
+    this.rendered = null;
+    this.container = null;
+  }
+
+  append(container) {
+    this.container = container;
+    this.container.appendChild(this.rendered);    
+  }
+}
