@@ -1,5 +1,5 @@
 const bigPictureTemplate = (data) => {
-  const { url, comments, commentsTotal, likes } = data;
+  const {url, comments, description, likes } = data;
   return `<h2 class="big-picture__title  hidden">Просмотр фотографии</h2>
       <div class="big-picture__preview">
 
@@ -12,13 +12,14 @@ const bigPictureTemplate = (data) => {
         <div class="big-picture__social  social">
           <div class="social__header">
             <img class="social__picture" src="img/avatar-1.svg" alt="Аватар автора фотографии" width="35" height="35">
-            <p class="social__caption">Тестим новую камеру! =)</p>
+            <p class="social__caption">${description}</p>
             <p class="social__likes">Нравится <span class="likes-count">${likes}</span></p>
           </div>
 
           <!-- Комментарии к изображению -->
-          <div class="social__comment-count">5 из <span class="comments-count">${commentsTotal}</span> комментариев</div>
-          <ul class="social__comments">${comments}
+          <div class="social__comment-count">5 из <span class="comments-count">${comments.length}</span> комментариев</div>
+          <ul class="social__comments">
+            ${comments}
           </ul>
 
           <!-- Кнопка для загрузки новой порции комментариев -->

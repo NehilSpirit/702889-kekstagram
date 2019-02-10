@@ -1,9 +1,11 @@
 import AbstractView from './AbstractView';
 import { bigPictureTemplate } from '../templates';
+import * as consts from '../consts';
 
 export default class BigPicture extends AbstractView {
   constructor(data) {
     super(bigPictureTemplate, data);
+    this.body = document.querySelector('body');
     this.render();
   }
 
@@ -11,7 +13,17 @@ export default class BigPicture extends AbstractView {
     const closeBtn = this.rendered.querySelector('#picture-cancel');
     closeBtn.addEventListener('click', (e) => {
       this.remove();
+      document.removeEventListener('keydown', this.onEscClosePicture );
     });
+    this.onEscClosePicture = this.onEscClosePicture.bind(this);
+      document.addEventListener('keydown', this.onEscClosePicture);
+  }
+
+  onEscClosePicture(evt) {
+    if (evt.keyCode === consts.escCode) {
+       this.remove();
+       document.removeEventListener('keydown', this.onEscClosePicture );
+   }
   }
 
   remove() {
@@ -21,6 +33,7 @@ export default class BigPicture extends AbstractView {
     this.rendered = null;
     this.container.innerHTML = '';
     this.container.classList.add('hidden');
+    this.body.classList.remove('.modal-open');
     this.container = null;
   }
 
@@ -29,5 +42,6 @@ export default class BigPicture extends AbstractView {
     console.log(this.container);
     this.container.appendChild(this.rendered);
     this.container.classList.remove('hidden');
+    this.body.classList.add('.modal-open');
   }
 }

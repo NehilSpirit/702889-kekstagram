@@ -1,3 +1,4 @@
+export const NEWNUM = 10;
 export const commentsArray = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -16,3 +17,5 @@ export const descriptions = [
 ];
 
 export const Num = 25;
+export const escCode = 27;
+
