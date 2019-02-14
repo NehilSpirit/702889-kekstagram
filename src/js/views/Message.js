@@ -23,7 +23,7 @@ export default class Message extends AbstractView {
           this.onEscCloseMessage = this.onEscCloseMessage.bind(this);
           document.addEventListener('keydown', this.onEscCloseMessage);
       }
-// для сообщения ошибки
+
       bindError() {
         const closeBtns = this.rendered.querySelectorAll('.error__button');
         closeBtns.forEach(elem => {
@@ -37,7 +37,6 @@ export default class Message extends AbstractView {
 
 
       remove() {
-        console.log('zzzzz');
         this.template = null;
         this.rendered = null;
         this.container.innerHTML = '';
@@ -46,7 +45,6 @@ export default class Message extends AbstractView {
     
       append(container) {
         this.container = container;
-        console.log(this.container);
         this.container.appendChild(this.rendered);
       }
     }

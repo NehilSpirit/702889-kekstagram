@@ -3,7 +3,6 @@ import { pictureTemplate } from '../templates';
 
 export default class Picture extends AbstractView {
   constructor(data) {
-    console.log('call Picture constructor');
     super(pictureTemplate, data);
     this.render();
   }

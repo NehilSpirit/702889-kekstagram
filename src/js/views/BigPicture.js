@@ -27,7 +27,6 @@ export default class BigPicture extends AbstractView {
   }
 
   remove() {
-    console.log('zzzzz');
     this.data = null;
     this.template = null;
     this.rendered = null;
@@ -39,7 +38,6 @@ export default class BigPicture extends AbstractView {
 
   append(container) {
     this.container = container;
-    console.log(this.container);
     this.container.appendChild(this.rendered);
     this.container.classList.remove('hidden');
     this.body.classList.add('.modal-open');

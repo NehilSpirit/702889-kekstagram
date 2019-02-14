@@ -6,6 +6,8 @@ import Effects from './Effects';
 import Slider from './Slider';
 import Message from './Message';
 import { successTemplate, errorTemplate } from '../templates';
+import { resolve } from 'url';
+import { rejects } from 'assert';
 
 export default class Form extends AbstractView {
     constructor() {
@@ -91,6 +93,7 @@ bindEsc() {
   bindHashtags() {
     this.textHashtags.addEventListener('change', (evt) => {
       const val = evt.target.value;
+      //this.validity(val);
       this.validityHeshtags(val);
     });
   }
@@ -108,6 +111,7 @@ bindEsc() {
     classes.value = 'effects__preview--none';
     this.imgUpload.classList.add('hidden');
   }
+  
 // создает сообщение успешной отправки формы
   renderMessageSuccess() {
     this.remove();
@@ -128,27 +132,48 @@ bindEsc() {
 
     //валидация хештегов
  validityHeshtags(items) {
-   let valid;
-   let filter = items.split(' ', 5).filter((item) => item !== undefined )
-   filter.every((item) => {
-     if (item.charAt(0) === '#' && item.length > 2 && item.length < 20){
-       return valid = true;
-     } else {
-      return valid = false;
-     }
-     }); 
-     let set = new Set()
-     filter.forEach((item) => { set.add(item); return set; })
-      console.log(set);
-      console.log(valid);
-   if(valid === true ) {
-      this.textHashtags.style.border = '';
-      this.textHashtags.setCustomValidity('');
-   } else { 
-     this.textHashtags.style.border = '2px solid red';
-     this.textHashtags.setCustomValidity('Хештег должен начинаться с #, иметь длину меньше 20 и больше 2 символов');
-  }
+   const max = 20;
+   const min = 2;
+   const maxLength = 5;
+   const fs = '#';
+   let valid = true;
+
+// подготовка к валидации
+   let filter = items.trim().split(' ').filter(item => item !== '').map(item => item.toUpperCase())
+   let  _set = new Set(filter);
+   let  _filter = [..._set];
+
+    switch(valid) {
+      case _filter.length !== filter.length: 
+      valid = false;
+      this.validity(valid);
+    break;
+      case filter.some(item =>  item.lenght > max || item.lenght < min ):
+      valid = false;
+      this.validity(valid);
+      break;
+      case filter.some(item =>  item[0] !== fs ):
+      valid = false;
+      this.validity(valid);
+      break;
+      case filter.length > maxLength:
+      valid = false;
+      this.validity(valid);
+      break;
+      default:  this.validity(valid);
+    }
  }
+
+ validity(val) {
+   if(val) {
+     this.textHashtags.style.border = '';
+     this.textHashtags.setCustomValidity('');
+} else  { 
+     this.textHashtags.style.border = '2px solid red';
+     this.textHashtags.setCustomValidity('Хештег должен начинаться с #, иметь длину меньше 20 и больше 2 символов, допускается 5 разных хештегов');
+  }
+}
+
 /* отправляет данные формы на сервер  */
 request(formdata) {
     axios.post(this.urlSave, formdata )

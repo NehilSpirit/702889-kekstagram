@@ -19,7 +19,7 @@ const bigPictureTemplate = (data) => {
           <!-- Комментарии к изображению -->
           <div class="social__comment-count">5 из <span class="comments-count">${comments.length}</span> комментариев</div>
           <ul class="social__comments">
-            ${comments}
+          
           </ul>
 
           <!-- Кнопка для загрузки новой порции комментариев -->

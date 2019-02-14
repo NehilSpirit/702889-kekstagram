@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Picture, BigPicture, Filters, Form } from './views';
+import { Picture, BigPicture, Filters, Form, Comment } from './views';
 
 export default class App {
   constructor() {
@@ -21,7 +21,7 @@ export default class App {
 
   load() {
     axios.get(this.state.urlLoad)
-      .then(response => response.data )
+      .then(response => response.data)
       .then((data) => {this.state.data = data; this.renderPics([...data]); })
       .catch((err) => { console.log(err)});
   }
@@ -34,6 +34,7 @@ export default class App {
       picture.bind();
       picture.append(fragment);
       return picture;
+      
     });
     this.removePics();
     this.state.picturesContainer.appendChild(fragment);
@@ -55,10 +56,16 @@ export default class App {
     // bigpic.bind(this.deleteBigPicture);
     bigpic.bind();
     bigpic.append(this.state.bigpicContainer);
+    this.renderComents(data.comments);
   }
 
   deleteBigPicture() {
     this.state.bigpicContainer.innerHTML = '';
+  }
+
+  renderComents(data) {
+    const comment = new Comment(data);
+    comment.addComents(data);
   }
 
   // filters methods
@@ -73,10 +80,11 @@ export default class App {
   }
 
   onClickFilterDiscussed() {
-    const discussed = this.state.data;
+    const discussed = this.state.data.slice(0);
     discussed.sort((a, b) => a.likes - b.likes);
     this.renderPics(discussed.reverse());
   }
+  
   // создает форму 
  renderForm() {
     const form = new Form();
@@ -94,9 +102,7 @@ export default class App {
     filters.onClickFilterPopular = this.onClickFilterPopular.bind(this);
     filters.onClickFilterNew = this.onClickFilterNew.bind(this);
     filters.onClickFilterDiscussed = this.onClickFilterDiscussed.bind(this);
-    this.renderForm()
-    //вешаем слушатель чтоб показать форму по клику
-    //this.state.uploadFile.addEventListener('change', () => { this.showForm() });
+    this.renderForm();
   }
   
 

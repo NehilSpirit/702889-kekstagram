@@ -86,7 +86,7 @@ effectLevelDepth.style.width = `${move}px`;
 howClass();
 }
 
-/* слайдер */
+/* двигает ползунок */
 function onMouseMove(evt) {
 const moveEvt = evt;
 moveEvt.preventDefault();

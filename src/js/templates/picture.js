@@ -1,4 +1,4 @@
-// функция получает данные и возвращает строку с ренедром этих данных и шаблона разметки
+
 const pictureTemplate = (data) => {
   const { url, comments, likes } = data;
   return `<a href="#" class="picture">
