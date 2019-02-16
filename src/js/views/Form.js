@@ -46,7 +46,6 @@ bindEsc() {
 } 
 // скрывает форму
     remove() {
-      console.log('zzzzz');
       this.container.classList.add('hidden');
       this.putDefault();
     }
