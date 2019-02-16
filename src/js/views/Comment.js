@@ -27,7 +27,6 @@ export default class Comment extends AbstarctView {
   
   append(container) {
     this.container = container;
-    console.log(this.container);
     this.container.appendChild(this.rendered);
    
   } 
@@ -47,13 +46,13 @@ export default class Comment extends AbstarctView {
   this.render(commentTemplate, data.slice(count , count + step)); 
   if(count < data.length) {
     count += step; 
-    this.commentCount.innerHTML = `${count} из <span class="comments-count">${data.length}</span> комментариев`;
   }
     if(count >= data.length ) {
       count = data.length; 
-      this.commentCount.innerHTML = `${count} из <span class="comments-count">${data.length}</span> комментариев`;
       this.commentsLoader.classList.add('hidden');
     } 
+    this.commentCount.innerHTML = `${count} из <span class="comments-count">${data.length}</span> комментариев`;
+
   });
 }
   

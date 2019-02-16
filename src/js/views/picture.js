@@ -12,10 +12,6 @@ export default class Picture extends AbstractView {
     pic.addEventListener('click', ()=>{ this.onClick(); });
   }
 
-  onClick(){
-    console.log('click-clack');
-  }
-
   remove() {
     this.data = null;
     this.template = null;

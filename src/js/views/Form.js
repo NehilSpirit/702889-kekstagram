@@ -6,8 +6,6 @@ import Effects from './Effects';
 import Slider from './Slider';
 import Message from './Message';
 import { successTemplate, errorTemplate } from '../templates';
-import { resolve } from 'url';
-import { rejects } from 'assert';
 
 export default class Form extends AbstractView {
     constructor() {
@@ -66,7 +64,6 @@ bindEsc() {
 // добавляет форму в разметку
     append(container) {
       this.container = container;
-      console.log(this.container);
       this.container.appendChild(this.rendered);
       this.run();
       this.uploadFile.addEventListener('change', () => { this.showForm() });
@@ -177,12 +174,10 @@ bindEsc() {
 /* отправляет данные формы на сервер  */
 request(formdata) {
     axios.post(this.urlSave, formdata )
-      .then(response => { this.renderMessageSuccess()})// console.log(response)   console.log(err)вывожу чтоб видеть отправилось ли
-      //.then( this.renderMessageSuccess(),  this.renderMessageError())
+      .then(response => { this.renderMessageSuccess()})
       .catch((err) => {this.renderMessageError()});
   } 
 
-  // 
   save(){
 this.form.addEventListener('submit', (evt) => {
     evt.preventDefault();

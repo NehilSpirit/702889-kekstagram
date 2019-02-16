@@ -146,6 +146,7 @@ addImg() {
   this.uploadFile.addEventListener('change', () => { 
     this.previewFile(this.imgUploadPreviewImg); });
 }
+
 /* при изменении значения поля вызывает функцию переключения эффектов */
 showEffect() {
   this.addImg();

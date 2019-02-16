@@ -5,7 +5,7 @@ export default class App {
   constructor() {
     const picturesContainer = document.querySelector('.pictures');
     const bigpicContainer = document.querySelector('.big-picture');
-    const formContainer = document.querySelector('.img-upload__overlay');// куда добавляем форму
+    const formContainer = document.querySelector('.img-upload__overlay');
     const urlLoad = 'https://js.dump.academy/kekstagram/data';
     const data = [];
     const pics = [];
@@ -51,17 +51,15 @@ export default class App {
   }
 
   renderBigPicture(data) {
-    console.log('bigpic data ', data);
     const bigpic = new BigPicture(data);
-    // bigpic.bind(this.deleteBigPicture);
     bigpic.bind();
     bigpic.append(this.state.bigpicContainer);
     this.renderComents(data.comments);
   }
 
-  deleteBigPicture() {
-    this.state.bigpicContainer.innerHTML = '';
-  }
+  //deleteBigPicture() {
+   // this.state.bigpicContainer.innerHTML = '';
+  //}
 
   renderComents(data) {
     const comment = new Comment(data);
