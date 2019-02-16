@@ -57,10 +57,6 @@ export default class App {
     this.renderComents(data.comments);
   }
 
-  //deleteBigPicture() {
-   // this.state.bigpicContainer.innerHTML = '';
-  //}
-
   renderComents(data) {
     const comment = new Comment(data);
     comment.addComents(data);
