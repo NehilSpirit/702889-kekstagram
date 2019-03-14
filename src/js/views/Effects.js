@@ -151,7 +151,7 @@ addImg() {
 showEffect() {
   this.addImg();
   this.changeSizeImg();
-this.imgUploadEffects.addEventListener('input', (evt) => {
+this.imgUploadEffects.addEventListener('change', (evt) => {
   const val = evt.target.value;
   this.toggleClass(this.imgUploadPreviewImg, this.Effect[val]);
 });
